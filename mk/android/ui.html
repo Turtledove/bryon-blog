@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>android 学习之UI，自定义组件，绘图，动画</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="r6j0" id="android-学习之ui自定义组件绘图动画">android 学习之UI，自定义组件，绘图，动画</h1><p data-anchor-id="0b8u"><code>android</code> <code>学习</code> <br>
+    该文档是记录android学习历程，如有错误之处，请之处，不胜感激！</p><hr><p data-anchor-id="aru0"><div class="toc">
+<ul>
+<li><a href="#android-学习之ui自定义组件绘图动画">android 学习之UI，自定义组件，绘图，动画</a><ul>
+<li><a href="#一常用ui组件">一、常用UI组件</a><ul>
+<li><ul>
+<li><a href="#1-linerlayout-线性布局方式常用">（1） LinerLayout 线性布局方式(常用)</a></li>
+<li><a href="#2-relativelayout-相对布局方式常用">（2） RelativeLayout 相对布局方式(常用)</a></li>
+<li><a href="#3-framelayout-帧布局方式不常用">（3） FrameLayout 帧布局方式(不常用)</a></li>
+<li><a href="#4-tablelayout-表格布局方式不常用">（4） TableLayout 表格布局方式（不常用）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#二自定义ui组件">二、自定义UI组件</a></li>
+<li><a href="#三绘图">三、绘图</a></li>
+<li><a href="#四动画">四、动画</a><ul>
+<li><a href="#1-基本应用">1 基本应用</a></li>
+<li><a href="#2-interpolator">2 Interpolator</a></li>
+</ul>
+</li>
+<li><a href="#五其他">五、其他</a><ul>
+<li><a href="#1-drawable与-bitmap-的区别">1 Drawable与 Bitmap 的区别</a></li>
+<li><a href="#2-告别-findviewbyid">2 告别 findViewById</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</p><div class="md-section-divider"></div><h2 data-anchor-id="nwp3" id="一常用ui组件"><strong>一、常用UI组件</strong></h2><div class="md-section-divider"></div><h4 data-anchor-id="5d7n" id="1-linerlayout-线性布局方式常用"><strong>（1） LinerLayout 线性布局方式(常用)</strong></h4><p data-anchor-id="vwl8">在LinerLayout 里面View 按照vercial或者horizontal方向依次排列。</p><ul data-anchor-id="11bo">
+<li><p><strong>关键属性</strong>：</p>
+
+<ul><li><p><em>Layout_gravity</em> : 指View在Layout中的布局方式（Top,Center,Bottom...），当LinerLayout的排列属 性为vercial时，layout_gravity只有水平方向上的属性有效，同理，当LinerLayout的排列属性为horizontal时，layout_gravity只有在垂直方向上的属性有效</p></li>
+<li><p><em>Layout_weight</em>  :  根据比例和layout分配View的大小，<code>将需要根据比例分配的width或者height设置城0是比较规范的写法</code>,layout_weight 使用小技巧，一行控件中，如果其中只有一个使用layout_weight=1,那么该控件将沾满剩余空间</p></li></ul></li>
+<li><strong>layout_gravity 和gravity 的区别？</strong> <br>
+前者是指View在Layout中的布局方式，而后者是只当前View中文字等的布局方式</li>
+</ul><div class="md-section-divider"></div><h4 data-anchor-id="vu4g" id="2-relativelayout-相对布局方式常用"><strong>（2） RelativeLayout 相对布局方式(常用)</strong></h4><p data-anchor-id="d9us">RelativeLayout 中的View将根据RelativeLayout和其他View的位置进行布局，例如View1 位于RelativeLayout的底部（bottom）,位于View2的右边（toRightOF）. 比LinerLayout布局方式更为灵活，同时属性更多，但是Relativelayout的属性都比较容易理解和有迹可循。主要可分为相对于parent的属性，和相对于其他brother的属性，而相对于其他brother的属性可分为：对齐类属性和方位类属性</p><ul data-anchor-id="4vnf">
+<li><strong>关键属性</strong>：  <br>
+<ul><li><strong>相对于parent属性</strong>，例如：layout_alignParentBottom，layout_alignParentTop等</li>
+<li><strong>相对于其他brothers的属性</strong>，又分为方位和对齐两种，例如：layout_toLeftOf（方位），layout_alignRight（对齐）等。 <br>
+<ul><li>方位 ，例如，layout_toLeftOf=“@id/view1” 当前view 位于view1的左边</li>
+<li>对齐， 例如layout_alignRight=“@id/view1” 当前view 和view1 右对齐</li></ul></li></ul></li>
+</ul><div class="md-section-divider"></div><h4 data-anchor-id="r2sk" id="3-framelayout-帧布局方式不常用"><strong>（3） FrameLayout 帧布局方式(不常用)</strong></h4><p data-anchor-id="vroj">所有的控件（View）都叠加在左上角的位置，不可以进行位置的布局，仅能通过layout_gravity来布局。应用场景比较少，个人能够想像到的使用有，背景图片轮换或者做类似换页的效果，但是这样做之后不知能够有性能的提高或者好处？</p><div class="md-section-divider"></div><h4 data-anchor-id="4e9b" id="4-tablelayout-表格布局方式不常用"><strong>（4） TableLayout 表格布局方式（不常用）</strong></h4><p data-anchor-id="fia3">TableLayout布局顾名思义就是用来生成表格的布局，使用TableRow来生成一行数据包含若干列，每一列单元格的宽度由该列最宽的元素决定，每个子View是不能设置宽度width:</p><blockquote data-anchor-id="ppgm" class="white-blockquote">
+  <p>The children of a TableLayout cannot specify the layout_width attribute. Width is always MATCH_PARENT. However, the layout_height attribute can be defined by a child; default value is WRAP_CONTENT. If the child is a TableRow, then the height is always WRAP_CONTENT.</p>
+</blockquote><p data-anchor-id="fagh">常用的子View是TableView,如果使用其他View的话，会默认该View为一行</p><p data-anchor-id="bjof"><strong>关键属性</strong></p><ul data-anchor-id="aod3">
+<li>android:shrinkColumns="1" 当空间不够的时候压缩第二列</li>
+<li>android:stretchColumns="0"当空间过多的时候，扩展第一列去matchparent</li>
+<li>android:layout_span="2"   当前单元格的控件占据几个单元格</li>
+<li>android:collapseColumns="1" 隐藏第二列</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="ijy2" id="二自定义ui组件"><strong>二、自定义UI组件</strong></h2><p data-anchor-id="2lef"><strong>//TODO</strong> <br>
+ - 测量onMeasure() <br>
+ - 布局onlayout() <br>
+ - 绘图onDraw()</p><div class="md-section-divider"></div><h2 data-anchor-id="yjdt" id="三绘图"><strong>三、绘图</strong></h2><p data-anchor-id="0h93">android 绘图只要依赖画布Canvas，画笔Paint。其中画布Canvas 提供两种构造函数：</p><ul data-anchor-id="612l">
+<li>Canvas()：创建一个空的Canvas对象。</li>
+<li>Canvas(Bitmap bitmap)：创建一个以bitmap位图为背景的Canvas。、</li>
+</ul><p data-anchor-id="yw9m"><strong>Drawable,Canvas,Paint区别与联系</strong></p><ul data-anchor-id="xksq">
+<li>Drawable ,BitMap 等代表画到哪里去</li>
+<li>Canvas 代表画什么东西上去，画圆，画矩阵，画图，还是其他</li>
+<li>Paint 代表怎么画？用什么颜色，要不要填充等</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="4fwj" id="四动画"><strong>四、动画</strong></h2><div class="md-section-divider"></div><h3 data-anchor-id="c6r0" id="1-基本应用"><strong>1 基本应用</strong></h3><p data-anchor-id="d8b8">主要由抽象动画类Animation来做相关动画，Animation主要有一下5个动画类</p><ul data-anchor-id="69wi">
+<li>AlphaAnimation  渐变动画类</li>
+<li>RotateAnimation 旋转动画类</li>
+<li>ScaleAnimation 缩放动画类</li>
+<li>TranslateAnimation 移动动画类</li>
+<li><p>AnimationSet     动画集合类，可以包含多个以上动画来同时执行</p>
+
+<p>AlphaAnimation，RotateAnimation，ScaleAnimationTranslateAnimation四种动画的初始化都可以通过代码和xml配置来实现，下面通过AlphaAnimation来做示例：</p></li>
+<li><p>通过代码实现</p></li>
+</ul><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="kgum"><ol class="linenums"><li class="L0"><code><span class="pln">  </span><span class="com">//初始化动画参数，这里是渐变前后的透明度</span></code></li><li class="L1"><code><span class="pln">  </span><span class="typ">AlphaAnimation</span><span class="pln"> alpha </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">AlphaAnimation</span><span class="pun">(</span><span class="lit">1f</span><span class="pun">,</span><span class="lit">0.1f</span><span class="pun">);</span></code></li><li class="L2"><code><span class="pln">  </span><span class="com">//设置动画的执行时间</span></code></li><li class="L3"><code><span class="pln">  alpha</span><span class="pun">.</span><span class="pln">setDuration</span><span class="pun">(</span><span class="lit">1000</span><span class="pun">);</span></code></li><li class="L4"><code><span class="pln">  </span><span class="com">//启动动画</span></code></li><li class="L5"><code><span class="pln">  view</span><span class="pun">.</span><span class="pln">startAnimation</span><span class="pun">(</span><span class="pln">scaleAnimation</span><span class="pun">);</span></code></li></ol></pre><p data-anchor-id="2422">其他动画初始化和使用类似，只有相关参数不同。只有AnimationSet 动画集的使用不同，如下所示：</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="zgzn"><ol class="linenums"><li class="L0"><code><span class="pln">  </span><span class="typ">Animation</span><span class="pln"> alpha </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">AlphaAnimation</span><span class="pun">(</span><span class="lit">1f</span><span class="pun">,</span><span class="lit">0.1f</span><span class="pun">);</span></code></li><li class="L1"><code><span class="pln">  </span><span class="com">//初始化 Translate动画  </span></code></li><li class="L2"><code><span class="pln">  </span><span class="typ">Animation</span><span class="pln"> translateAnimation </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">TranslateAnimation</span><span class="pun">(</span><span class="lit">0.1f</span><span class="pun">,</span><span class="pln"> </span><span class="lit">100.0f</span><span class="pun">,</span><span class="lit">0.1f</span><span class="pun">,</span><span class="lit">100.0f</span><span class="pun">);</span><span class="pln">  </span></code></li><li class="L3"><code><span class="pln">  </span><span class="com">//定义动画集，true/false时候共享集合的Interpolator</span></code></li><li class="L4"><code><span class="pln">  </span><span class="typ">AnimationSet</span><span class="pln"> animationSet </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">AnimationSet</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">);</span></code></li><li class="L5"><code><span class="pln">  </span><span class="com">//添加动画到动画集</span></code></li><li class="L6"><code><span class="pln">  animationSet</span><span class="pun">.</span><span class="pln">addAnimation</span><span class="pun">(</span><span class="pln">translateAnimation</span><span class="pun">);</span><span class="pln">  </span></code></li><li class="L7"><code><span class="pln">  animationSet</span><span class="pun">.</span><span class="pln">addAnimation</span><span class="pun">(</span><span class="pln">alphaAnimation</span><span class="pun">);</span><span class="pln">  </span></code></li><li class="L8"><code><span class="pln">  animationSet</span><span class="pun">.</span><span class="pln">setDuration</span><span class="pun">(</span><span class="lit">1000</span><span class="pun">);</span><span class="pln">  </span></code></li><li class="L9"><code><span class="pln">  view</span><span class="pun">.</span><span class="pln">startAnimation</span><span class="pun">(</span><span class="pln">animationSet</span><span class="pun">);</span><span class="pln">     </span></code></li></ol></pre><ul data-anchor-id="i2zy">
+<li>XML配置动画 <br>
+任然以AlphaAnimation为例：</li>
+</ul><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="qilj"><ol class="linenums"><li class="L0"><code><span class="pun">&lt;?</span><span class="pln">xml version</span><span class="pun">=</span><span class="str">"1.0"</span><span class="pln"> encoding</span><span class="pun">=</span><span class="str">"utf-8"</span><span class="pun">?&gt;</span></code></li><li class="L1"><code><span class="tag">&lt;set</span><span class="pln"> </span><span class="atn">xmlns:android</span><span class="pun">=</span><span class="atv">"http://schemas.android.com/apk/res/android"</span><span class="tag">&gt;</span></code></li><li class="L2"><code><span class="pln">    </span><span class="tag">&lt;alpha</span></code></li><li class="L3"><code><span class="pln">        </span><span class="atn">android:fromAlpha</span><span class="pun">=</span><span class="atv">"1.0"</span></code></li><li class="L4"><code><span class="pln">        </span><span class="atn">android:toAlpha</span><span class="pun">=</span><span class="atv">"0.1"</span></code></li><li class="L5"><code><span class="pln">        </span><span class="atn">android:duration</span><span class="pun">=</span><span class="atv">"1000"</span></code></li><li class="L6"><code><span class="pln">    </span><span class="tag">/&gt;</span></code></li><li class="L7"><code><span class="tag">&lt;/set&gt;</span></code></li></ol></pre><p data-anchor-id="h80d">在代码中加载</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="2aqz"><ol class="linenums"><li class="L0"><code><span class="pln">  </span><span class="typ">Animation</span><span class="pln"> alphaAnimation </span><span class="pun">=</span><span class="pln"> </span><span class="typ">AnimationUtils</span><span class="pun">.</span><span class="pln">loadAnimation</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">getContext</span><span class="pun">(),</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">anim</span><span class="pun">.</span><span class="pln">alpha_anim</span><span class="pun">);</span><span class="pln">  </span></code></li></ol></pre><div class="md-section-divider"></div><h3 data-anchor-id="wbvr" id="2-interpolator"><strong>2 Interpolator</strong></h3><pre data-anchor-id="gmwk"><code>Interpolator 用来修饰动画效果，加速，减速，弹跳等，可以根据需求自定义，也可以使用android提供的效果<a href="#fn:android-interpolater" id="fnref:android-interpolater" title="查看注脚" class="footnote">[1]</a>:
+</code></pre><ul data-anchor-id="whi3">
+<li>AccelerateDecelerateInterpolator,</li>
+<li>AccelerateInterpolator, </li>
+<li>AnticipateInterpolator,</li>
+<li>AnticipateOvershootInterpolator,</li>
+<li>BounceInterpolator, </li>
+<li>CycleInterpolator,</li>
+<li>DecelerateInterpolator, </li>
+<li>LinearInterpolator, </li>
+<li>OvershootInterpolator, </li>
+<li>PathInterpolator</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="0013" id="五其他"><strong>五、其他</strong></h2><div class="md-section-divider"></div><h3 data-anchor-id="6ani" id="1-drawable与-bitmap-的区别">1 Drawable与 Bitmap 的区别</h3><p data-anchor-id="3ro6">Drawable是一种“可绘制”的对象，而Bitmap 则是最简单的在一种Drawable。但是二者之间并没有继承或者实现的关系。</p><blockquote data-anchor-id="khr6" class="white-blockquote">
+  <p>A Drawable is a general abstraction for "something that can be drawn." and Bitmap: the simplest Drawable, a PNG or JPEG image.</p>
+</blockquote><div class="md-section-divider"></div><h3 data-anchor-id="9fjb" id="2-告别-findviewbyid">2 告别 findViewById</h3><p data-anchor-id="9yym">findViewById 好吧这个东西让人很恶心，特别是要操作大量的View的时候，想要消除他，首先想到的是使用一个更短的函数来替代他，但是不能消除类型转换，这个时候结合泛型来消除类型转换：</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="wv6w"><ol class="linenums"><li class="L0"><code><span class="pln">    </span><span class="kwd">private</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">T</span><span class="pun">&gt;</span><span class="pln"> T $</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> resid</span><span class="pun">){</span></code></li><li class="L1"><code><span class="pln">        </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">(</span><span class="pln">T</span><span class="pun">)</span><span class="pln">findViewById</span><span class="pun">(</span><span class="pln">resId</span><span class="pun">);</span></code></li><li class="L2"><code><span class="pln">     </span><span class="pun">}</span></code></li></ol></pre><p data-anchor-id="s0rl">把这个函数放在YourActivity 或者公用BaseActivity中，每次使用的时候只要：</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="xr05"><ol class="linenums"><li class="L0"><code><span class="pln">  </span><span class="typ">ImageView</span><span class="pln"> iv_icon </span><span class="pun">=</span><span class="pln"> $</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">iv_icon</span><span class="pun">);</span></code></li></ol></pre><p data-anchor-id="2dvy">相对于findViewById已经简单了很多，还是需要去初始化，想起Spring通过注解的形式来注入Bean,虽然这里的性质和Spring不一样，但是也可以通过注解和反射来实现初始化View。目前已经有人做出成熟的框架Butter Knife<a href="#fn:butter-knife" id="fnref:butter-knife" title="查看注脚" class="footnote">[2]</a>,还可以绑定资源和OnClick监听事件。示例如下<a href="#fn:butter-knife" id="fnref:butter-knife" title="查看注脚" class="footnote">[3]</a>：</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="h7n0"><ol class="linenums"><li class="L0"><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">ExampleActivity</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Activity</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L1"><code><span class="pln">  </span><span class="lit">@Bind</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">user</span><span class="pun">)</span><span class="pln"> </span><span class="typ">EditText</span><span class="pln"> username</span><span class="pun">;</span></code></li><li class="L2"><code><span class="pln">  </span><span class="lit">@Bind</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="kwd">pass</span><span class="pun">)</span><span class="pln"> </span><span class="typ">EditText</span><span class="pln"> password</span><span class="pun">;</span></code></li><li class="L3"><code></code></li><li class="L4"><code><span class="pln">  </span><span class="lit">@BindString</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="kwd">string</span><span class="pun">.</span><span class="pln">login_error</span><span class="pun">)</span></code></li><li class="L5"><code><span class="pln">  </span><span class="typ">String</span><span class="pln"> loginErrorMessage</span><span class="pun">;</span></code></li><li class="L6"><code></code></li><li class="L7"><code><span class="pln">  </span><span class="lit">@OnClick</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">submit</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> submit</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L8"><code><span class="pln">    </span><span class="com">// TODO call server...</span></code></li><li class="L9"><code><span class="pln">  </span><span class="pun">}</span></code></li><li class="L0"><code><span class="pln">  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCreate</span><span class="pun">(</span><span class="typ">Bundle</span><span class="pln"> savedInstanceState</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L1"><code><span class="pln">    </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">onCreate</span><span class="pun">(</span><span class="pln">savedInstanceState</span><span class="pun">);</span></code></li><li class="L2"><code><span class="pln">    setContentView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">layout</span><span class="pun">.</span><span class="pln">simple_activity</span><span class="pun">);</span></code></li><li class="L3"><code><span class="pln">    </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">);</span></code></li><li class="L4"><code><span class="pln">    </span><span class="com">// TODO Use fields...</span></code></li><li class="L5"><code><span class="pln">  </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">}</span></code></li></ol></pre><div class="footnotes" data-anchor-id="f4wk">
+<hr>
+<small>
+
+<span id="fn:android-interpolater">[1] </span><a href="http://developer.android.com/reference/android/view/animation/BaseInterpolator.html" target="_blank">http://developer.android.com/reference/android/view/animation/BaseInterpolator.html</a> <a href="#fnref:android-interpolater" title="回到文稿" class="reversefootnote">↩</a><br>
+
+<span id="fn:butter-knife">[2] </span><a href="https://github.com/JakeWharton/butterknife" target="_blank">https://github.com/JakeWharton/butterknife</a> <a href="#fnref:butter-knife" title="回到文稿" class="reversefootnote">↩</a><br>
+
+<span id="fn:butter-knife">[3] </span><a href="https://github.com/JakeWharton/butterknife" target="_blank">https://github.com/JakeWharton/butterknife</a> <a href="#fnref:butter-knife" title="回到文稿" class="reversefootnote">↩</a><br>
+
+</small>
+</div></div>
+</body>
+</html>
